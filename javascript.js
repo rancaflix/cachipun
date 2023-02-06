@@ -4,8 +4,11 @@ function getComputerChoice() {
     return moves[randomIndex];
 }
 
-const playerSelection = prompt("Elige entre piedra, papel o tijera");
-const computerSelection = getComputerChoice();
+let playerSelection = prompt("Elige entre piedra, papel o tijera").toLowerCase();
+let computerSelection = getComputerChoice();
+
+let playerScore = 0;
+let computerScore = 0;
 
 function playRound(playerSelection, computerSelection) {
     if (playerSelection === computerSelection) {
@@ -13,25 +16,61 @@ function playRound(playerSelection, computerSelection) {
     }
     else if (playerSelection === 'piedra') {
         if (computerSelection === 'papel') {
-          return "¡Perdiste! Papel vence a Piedra";
+          computerScore +=1;
+          return {
+            playerScore: playerScore,
+            computerScore: computerScore,
+        }
         } else {
-          return "¡Ganaste! Piedra vence a Tijera";
+          playerScore +=1;
+          return {
+            playerScore: playerScore,
+            computerScore: computerScore,
+        }
         }
     } else if (playerSelection === 'papel') {
         if (computerSelection === 'tijera') {
-          return "¡Perdiste! Tijera vence a Papel";
+          computerScore +=1;
+          return {
+            playerScore: playerScore,
+            computerScore: computerScore,
+        }
         } else {
+          playerScore +=1;
           return "¡Ganaste! Papel vence a Tijera";
         }
     } else if (playerSelection === 'tijera') {
         if (computerSelection === 'piedra') {
-          return "¡Perdiste! Piedra vence a Tijera";
+          computerScore +=1;
+          return {
+            playerScore: playerScore,
+            computerScore: computerScore,
+        }
         } else {
-          return "¡Ganaste! Tijera vence a Papel";
+          playerScore +=1;
+          return {
+            playerScore: playerScore,
+            computerScore: computerScore,
+        }
         }
     } else {
         return "Entrada inválida. Por favor escribe 'piedra', 'papel', o 'tijera'";
     }
 }
 
-console.log(playRound(playerSelection, computerSelection));
+function game() {
+  while (playerScore < 5 && computerScore < 5) {
+    playerSelection = prompt("Elige entre piedra, papel o tijera").toLowerCase();
+    computerSelection = getComputerChoice();
+    playRound(playerSelection,computerSelection)
+    alert("Jugador " + playerScore + " - " + computerScore + " Computador") 
+  }
+  if (playerScore == 5) {
+    alert('¡Ganaste!')
+  }
+  else {
+    alert('¡Perdiste!')
+  }
+}
+
+console.log(game());
